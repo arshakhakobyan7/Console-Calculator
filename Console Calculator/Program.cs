@@ -38,8 +38,15 @@ class Program
 
     static string[] History(int line_quantity, string file_path)
     {
-        
-        string[] filedata = File.ReadAllLines(file_path).TakeLast(line_quantity).ToArray();
+
+        string[] filedata = File.ReadAllLines(file_path);
+
+        int filelength = filedata.Length;
+
+        if (filelength < line_quantity)
+            line_quantity = filelength;
+
+        filedata = filedata.TakeLast(line_quantity).ToArray();
 
         return filedata;
     }
@@ -75,6 +82,7 @@ class Program
 
                 Console.WriteLine("History\n");
                 string[] lastCalculations = History(5, filepath);
+
                 foreach(string line in lastCalculations)
                 {
                     Console.WriteLine(line);
